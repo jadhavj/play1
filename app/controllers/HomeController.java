@@ -3,7 +3,10 @@ package controllers;
 import play.mvc.*;
 import play.mvc.Http.*;
 import play.libs.F.Promise;
-
+import play.data.Form;
+import play.data.FormFactory;
+import java.util.*;
+import models.*;
 /**
  * Created by M1039838 on 11/17/2017.
  */
@@ -36,5 +39,14 @@ public class HomeController extends Controller {
 
     public double intensiveComputation() {
         return 3.14;
+    }
+
+    public Result testForm() {
+        Form<User> userForm =  Form.form(User.class);
+
+        User user = userForm.bind(request().body().asJson()).get();
+        //User user =  userForm.bindFromRequest().get(); // form data
+
+        return ok("Hello " + user.getEmail());
     }
 }
